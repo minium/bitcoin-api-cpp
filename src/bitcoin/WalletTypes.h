@@ -142,7 +142,7 @@
 
 	struct txout_t{
 		std::string txid;
-		int n;
+		unsigned int n;
 	};
 
 	struct vin_t: txout_t{
@@ -152,7 +152,7 @@
 
 	struct vout_t{
 		double value;
-		int n;
+		unsigned int n;
 		scriptPubKey_t scriptPubKey;
 	};
 
