@@ -17,13 +17,20 @@ using Json::Value;
 using std::string;
 
 
-BitcoinAPI::BitcoinAPI() { }
+BitcoinAPI::BitcoinAPI() {
+	conn = {};
+}
+
 BitcoinAPI::BitcoinAPI(const string& user, const string& password, const string& host, int port){
 	conn.user = user;
 	conn.password = password;
 	conn.host = host;
 	conn.port = port;
 	conn.url = "http://"+ conn.user + ":"+ conn.password + "@" + conn.host + ":" + NumberToString(conn.port);
+}
+
+bool BitcoinAPI::IsInit(){
+	return !(conn.user.empty() || conn.password.empty() || conn.host.empty() || conn.port == 0);
 }
 
 string BitcoinAPI::NumberToString (int number){
