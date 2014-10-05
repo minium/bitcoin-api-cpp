@@ -365,6 +365,14 @@ double BitcoinAPI::getbalance(const string& account, int minconf) {
 	return result.asDouble();
 }
 
+double BitcoinAPI::getunconfirmedbalance() {
+	string command = "getunconfirmedbalance";
+	Value params, result;
+	result = sendcommand(command, params);
+
+	return result.asDouble();
+}
+
 double BitcoinAPI::getreceivedbyaccount(const string& account, int minconf) {
 	string command = "getreceivedbyaccount";
 	Value params, result;
