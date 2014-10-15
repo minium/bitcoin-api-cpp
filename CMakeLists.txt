@@ -1,23 +1,17 @@
-cmake_minimum_required(VERSION 2.6)
-project(BitcoinAPI)
-
-# Check if Curl lib is there
-find_package(CURL REQUIRED)
-include_directories(${CURL_INCLUDE_DIRS})
-
-# Set compiler flags
-SET(CMAKE_CXX_FLAGS   "${CMAKE_CXX_FLAGS} -std=c++11 -g -Wall")
-SET(CMAKE_C_FLAGS     "${CMAKE_C_FLAGS} -g -Wall")
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT(BitcoinAPI)
 
 # Set version number
 SET(MAJOR_VERSION 1)
 SET(MINOR_VERSION 0)
 
 # Add source directory
-add_subdirectory(src/bitcoin)
-add_subdirectory(src/test)
+ADD_SUBDIRECTORY(src/api)
+ADD_SUBDIRECTORY(src/jsonrpc)
 
+ADD_SUBDIRECTORY(test)
 
+# Set package settings
 IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
 INCLUDE(InstallRequiredSystemLibraries)
 
@@ -42,7 +36,7 @@ SET(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${MAJOR_VERSION}.${MIN
 
 SET(CPACK_DEBIAN_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
 
-SET(CPACK_COMPONENTS_ALL bitcoin jsonrpc jsoncpp mongoose)
+SET(CPACK_COMPONENTS_ALL bitcoinapi jsonrpc jsoncpp mongoose)
 INCLUDE(CPack)
 
 ENDIF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
