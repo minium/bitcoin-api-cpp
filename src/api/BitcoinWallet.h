@@ -1,5 +1,5 @@
 /**
- * @file bitcoin.h
+ * BitcoinWallet.h
  * Declaration of a C++ interface for JSON-RPC
  * communication with a running instance of bitcoind.
  *
@@ -7,8 +7,8 @@
  * @version 1.0
  */
 
-#ifndef BITCOIN_H_
-#define BITCOIN_H_
+#ifndef BITCOIN_H
+#define BITCOIN_H
 
 #include "rpc.h"
 #include "WalletTypes.h"

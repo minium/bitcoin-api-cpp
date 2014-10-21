@@ -1,11 +1,13 @@
 /**
- * @file bitcoin.cpp
+ * BitcoinWallet.cpp
+ *
  * Implementation of a C++ interface for JSON-RPC
  * communication with a running instance of bitcoind.
  *
  * @author Krzysztof Okupski
  * @version 1.0
  */
+
 #include <stdexcept>
 #include "BitcoinWallet.h"
 

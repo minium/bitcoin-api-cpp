@@ -1,8 +1,8 @@
-/*
+/**
  * BitcoinWalletBase.cpp
  *
- *  Created on: Jun 2, 2014
- *      Author: minium
+ * @author Krzysztof Okupski
+ * @version 1.0
  */
 
 #include <stdexcept>

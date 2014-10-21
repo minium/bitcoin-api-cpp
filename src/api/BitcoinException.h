@@ -1,12 +1,14 @@
-/*
- * BitcoinError.h
+/**
+ * BitcoinException.h
+ * 
+ * Declaration of error class for the JSON-RPC wrapper.
  *
- *  Created on: May 27, 2014
- *      Author: minium
+ * @author Krzysztof Okupski
+ * @version 1.0
  */
 
-#ifndef BITCOINERROR_H_
-#define BITCOINERROR_H_
+#ifndef BITCOINERROR_H
+#define BITCOINERROR_H
 
 #include <string>
 #include <sstream>
@@ -35,7 +37,7 @@ public:
 
 	std::string parse(const std::string& in){
 		std::string out = in;
-		std::string pattern = ": Error: ";
+		std::string pattern = ": ";
 		unsigned int pos = out.find(pattern);
 		if(pos <= out.size()){
 			out.erase(pos, pattern.size());
@@ -54,4 +56,4 @@ public:
 
 
 
-#endif /* BITCOINERROR_H_ */
+#endif

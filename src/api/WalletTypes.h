@@ -1,13 +1,14 @@
 /**
- * @file WalletTypes.h
+ * WalletTypes.h
+ * 
  * Type definitions for the JSON-RPC C++ interface.
  *
  * @author Krzysztof Okupski
  * @version 1.0
  */
 
-#ifndef WALLETTYPES_H_
-#define WALLETTYPES_H_
+#ifndef WALLETTYPES_H
+#define WALLETTYPES_H
 
 	/* === General types === */
 	struct getinfo_t{
