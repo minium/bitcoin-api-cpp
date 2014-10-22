@@ -6,7 +6,7 @@ This is a C++ wrapper library for JSON-RPC communication with the Bitcoin daemon
 Building the library
 --------------------
 
-** Dependencies **
+**Dependencies**
 
 This library requires [CMake](http://www.cmake.org/cmake/resources/software.html) and [Curl](http://curl.haxx.se) packages in order to be built. These can be installed as follows on Debian based systems:
 
@@ -14,7 +14,7 @@ This library requires [CMake](http://www.cmake.org/cmake/resources/software.html
 sudo apt-get cmake install libcurl4-openssl-dev
 ```
 
-** Build and install **
+**Build and install**
 
 Navigate to the root directory of the library and proceed as follows:
 
