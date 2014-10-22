@@ -7,6 +7,7 @@ Building the library
 --------------------
 
 ** Dependencies **
+
 This library requires [CMake](http://www.cmake.org/cmake/resources/software.html) and [Curl](http://curl.haxx.se) packages in order to be built. These can be installed as follows on Debian based systems:
 
 ```sh
@@ -14,6 +15,7 @@ sudo apt-get cmake install libcurl4-openssl-dev
 ```
 
 ** Build and install **
+
 Navigate to the root directory of the library and proceed as follows:
 
 ```sh
