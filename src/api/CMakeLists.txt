@@ -2,12 +2,15 @@
 SET(CMAKE_CXX_FLAGS "-std=c++11 -g -Wall")
 
 # Find header and source files
-FILE(GLOB bitcoinapi_header ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+FILE(GLOB bitcoinapi_header ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 FILE(GLOB bitcoinapi_source ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 # Set target libraries
 ADD_LIBRARY(bitcoinapi SHARED ${bitcoinapi_source})
 ADD_LIBRARY(bitcoinapi_static STATIC ${bitcoinapi_source})
+
+# Add boost header include
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/..)
 
 # Set output name of static library
 SET_TARGET_PROPERTIES(bitcoinapi_static PROPERTIES OUTPUT_NAME bitcoinapi)
