@@ -6,6 +6,8 @@ This is a C++ wrapper library for JSON-RPC communication with the Bitcoin daemon
 Building the library
 --------------------
 
+[![Build Status](https://travis-ci.org/minium/BitcoinAPI.svg?branch=master)](https://travis-ci.org/minium/BitcoinAPI)
+
 **Dependencies**
 
 This library requires [CMake](http://www.cmake.org/cmake/resources/software.html) and [Curl](http://curl.haxx.se) packages in order to be built. These can be installed as follows on Debian based systems:
