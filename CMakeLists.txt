@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT(BitcoinAPI)
 
 # Set version number
@@ -9,7 +9,7 @@ SET(MINOR_VERSION 0)
 ADD_SUBDIRECTORY(src/api)
 ADD_SUBDIRECTORY(src/jsonrpc)
 
-ADD_SUBDIRECTORY(test)
+# ADD_SUBDIRECTORY(test)
 
 # Set package settings
 IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")

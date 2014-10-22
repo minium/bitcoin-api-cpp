@@ -36,6 +36,3 @@ INSTALL(TARGETS jsonrpc jsonrpc_static
             LIBRARY DESTINATION lib
             ARCHIVE DESTINATION lib
             RUNTIME DESTINATION bin)
-
-# Make library public for other includes
-TARGET_INCLUDE_DIRECTORIES(jsonrpc PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

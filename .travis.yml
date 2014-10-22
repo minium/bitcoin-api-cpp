@@ -3,9 +3,18 @@ language: cpp
 compiler:
   - gcc
 
+before_install:
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
+
+install:
+  - sudo apt-get install libcurl4-openssl-dev
+  - sudo apt-get install -qq gcc-4.8 g++-4.8
+  - export CXX="g++-4.8"
+
 before_script:
   - cd build
   - cmake ..
 
-script: make && make tests
+script: make
 
