@@ -2,7 +2,7 @@
 
 #include <boost/test/unit_test.hpp>
 #include <algorithm>
-#include "Main.cpp"
+#include "main.cpp"
 
 BOOST_AUTO_TEST_SUITE(MiningTests)
 

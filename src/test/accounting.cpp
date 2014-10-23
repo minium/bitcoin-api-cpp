@@ -4,7 +4,7 @@
 #include <boost/filesystem.hpp>
 #include <fstream>
 
-#include "Main.cpp"
+#include "main.cpp"
 
 using boost::filesystem::path;
 using boost::filesystem::exists;
