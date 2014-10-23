@@ -7,9 +7,11 @@ SET(MINOR_VERSION 0)
 
 # Add source directory
 ADD_SUBDIRECTORY(src/api)
-ADD_SUBDIRECTORY(src/jsonrpc)
 
-# ADD_SUBDIRECTORY(test)
+FIND_PACKAGE(Boost COMPONENTS unit_test_framework)
+IF(Boost_FOUND)
+    ADD_SUBDIRECTORY(src/test)
+ENDIF()
 
 # Set package settings
 IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
