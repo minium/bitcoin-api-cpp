@@ -10,7 +10,7 @@ Building the library
 
 **Dependencies**
 
-This library requires [CMake](http://www.cmake.org/cmake/resources/software.html) and [libjson-rpc-cpp](https://github.com/cinemast/libjson-rpc-cpp) packages in order to be built. The former can be install on Debian-based systems as follows:
+This library requires [CMake](http://www.cmake.org/cmake/resources/software.html) and [libjson-rpc-cpp](https://github.com/cinemast/libjson-rpc-cpp) packages in order to be built. The former can be installed on Debian-based systems as follows:
 
 ```sh
 sudo apt-get install cmake
