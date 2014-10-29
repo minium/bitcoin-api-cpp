@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -std=c++11 -g -Wall   -shared -Wl,-soname,libbitcoinapi.so.0 -o libbitcoinapi.so.0.1.0 CMakeFiles/bitcoinapi.dir/wallet.cpp.o -lcurl -ljsonrpccpp-common -ljsonrpccpp-client 

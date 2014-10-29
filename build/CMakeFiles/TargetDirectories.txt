@@ -1,4 +1,0 @@
-/home/minium/Dropbox/University/Master/Semester-IV/Code/bitcoin-api-cpp/build/src/api/CMakeFiles/bitcoinapi.dir
-/home/minium/Dropbox/University/Master/Semester-IV/Code/bitcoin-api-cpp/build/src/api/CMakeFiles/bitcoinapi_static.dir
-/home/minium/Dropbox/University/Master/Semester-IV/Code/bitcoin-api-cpp/build/src/test/CMakeFiles/tests.dir
-/home/minium/Dropbox/University/Master/Semester-IV/Code/bitcoin-api-cpp/build/CMakeFiles/uninstall.dir
