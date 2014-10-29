@@ -12,15 +12,17 @@ install:
   - sudo apt-get install -qq gcc-4.8 g++-4.8
   - export CXX="g++-4.8"
 
+  - cd ..
   - git clone https://github.com/cinemast/libjson-rpc-cpp
   - cd libjson-rpc-cpp
   - mkdir build
   - cd build
   - cmake ..
   - make && sudo make install
-  - cd ../..
+  - cd ../../bitcoin-api-cpp
 
 before_script:
+  - mkdir build
   - cd build
   - cmake ..
 

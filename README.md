@@ -23,6 +23,7 @@ For the latter the instructions on [libjson-rpc-cpp](https://github.com/cinemast
 Navigate to the root directory of the library and proceed as follows:
 
 ```sh
+mkdir build
 cd build
 cmake ..
 make
