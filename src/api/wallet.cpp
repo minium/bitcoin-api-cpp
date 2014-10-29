@@ -1,17 +1,24 @@
 /**
- * wallet.cpp
- *
- * Implementation of a C++ interface for JSON-RPC
- * communication with a running instance of bitcoind.
- *
- * @author Krzysztof Okupski
+ * @file    wallet.cpp
+ * @author  Krzysztof Okupski
+ * @date    29.10.2014
  * @version 1.0
+ *
+ * Implementation of a C++ wrapper for communication with
+ * a running instance of Bitcoin daemon over JSON-RPC.
  */
 
-#include <stdexcept>
 #include "wallet.h"
 
+#include <string>
+#include <stdexcept>
+
+#include <jsonrpccpp/client.h>
+#include <jsonrpccpp/client/connectors/httpclient.h>
+
 using jsonrpc::Client;
+using jsonrpc::JSONRPC_CLIENT_V1;
+
 using jsonrpc::HttpClient;
 using jsonrpc::JsonRpcException;
 
@@ -51,11 +58,14 @@ int BitcoinAPI::StringToNumber (const string &text){
 	return ss >> result ? result : 0;
 }
 
-Value BitcoinAPI::sendcommand(const string& command, const Value& params){
-	Value result;
-	Client c(new HttpClient(conn.url));
+Value BitcoinAPI::sendcommand(const string& command, const Value& params){    
+    HttpClient client(conn.url);
+    client.SetTimeout(20000);
 
-	try{
+    Client c(client, JSONRPC_CLIENT_V1);
+    Value result;
+
+    try{
 		result = c.CallMethod(command, params);
 	}
 	catch (JsonRpcException& e){

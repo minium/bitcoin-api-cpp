@@ -1,14 +1,14 @@
 /**
- * exception.h
- * 
- * Declaration of error class for the JSON-RPC wrapper.
- *
- * @author Krzysztof Okupski
+ * @file    exception.h
+ * @author  Krzysztof Okupski
+ * @date    29.10.2014
  * @version 1.0
+ *
+ * Declaration of error class for the JSON-RPC wrapper.
  */
 
-#ifndef BITCOINERROR_H
-#define BITCOINERROR_H
+#ifndef BITCOIN_API_EXCEPTION_H
+#define BITCOIN_API_EXCEPTION_H
 
 #include <string>
 #include <sstream>
@@ -53,7 +53,5 @@ public:
 		return out.str().c_str();
 	}
 };
-
-
 
 #endif

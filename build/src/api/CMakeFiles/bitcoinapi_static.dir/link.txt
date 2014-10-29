@@ -1,0 +1,2 @@
+/usr/bin/ar cr libbitcoinapi.a  CMakeFiles/bitcoinapi_static.dir/wallet.cpp.o
+/usr/bin/ranlib libbitcoinapi.a

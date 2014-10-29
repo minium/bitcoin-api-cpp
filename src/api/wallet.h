@@ -1,16 +1,16 @@
 /**
- * wallet.h
- * Declaration of a C++ interface for JSON-RPC
- * communication with a running instance of bitcoind.
- *
- * @author Krzysztof Okupski
+ * @file    wallet.h
+ * @author  Krzysztof Okupski
+ * @date    29.10.2014
  * @version 1.0
+ *
+ * Declaration of a C++ wrapper for communication with
+ * a running instance of Bitcoin daemon over JSON-RPC.
  */
 
-#ifndef BITCOIN_H
-#define BITCOIN_H
+#ifndef BITCOIN_API_H
+#define BITCOIN_API_H
 
-#include "jsonrpc/rpc.h"
 #include "types.h"
 #include "exception.h"
 

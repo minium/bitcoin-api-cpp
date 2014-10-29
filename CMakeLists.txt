@@ -1,9 +1,16 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
-PROJECT(BitcoinAPI)
+PROJECT(libbitcoin-api-cpp)
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+
+# Set compiler settings
+SET(CMAKE_CXX_FLAGS "-std=c++11 -g -Wall")
 
 # Set version number
-SET(MAJOR_VERSION 1)
-SET(MINOR_VERSION 0)
+SET(MAJOR_VERSION 0)
+SET(MINOR_VERSION 1)
+SET(PATCH_VERSION 0)
+SET(SO_VERSION    0)
 
 # Add source directory
 ADD_SUBDIRECTORY(src/api)
@@ -38,7 +45,15 @@ SET(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${MAJOR_VERSION}.${MIN
 
 SET(CPACK_DEBIAN_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
 
-SET(CPACK_COMPONENTS_ALL bitcoinapi jsonrpc jsoncpp mongoose)
+SET(CPACK_COMPONENTS_ALL bitcoinapi)
 INCLUDE(CPack)
+
+# Uninstall target
+CONFIGURE_FILE(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmake_uninstall.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" IMMEDIATE @ONLY)
+
+ADD_CUSTOM_TARGET(uninstall
+COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 
 ENDIF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")

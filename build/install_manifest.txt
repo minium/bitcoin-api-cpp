@@ -1,0 +1,7 @@
+/usr/local/include/bitcoinapi/wallet.h
+/usr/local/include/bitcoinapi/types.h
+/usr/local/include/bitcoinapi/exception.h
+/usr/local/lib/libbitcoinapi.so.0.1.0
+/usr/local/lib/libbitcoinapi.so.0
+/usr/local/lib/libbitcoinapi.so
+/usr/local/lib/libbitcoinapi.a

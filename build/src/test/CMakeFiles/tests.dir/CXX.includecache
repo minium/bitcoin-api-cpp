@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/minium/Dropbox/University/Master/Semester-IV/Code/bitcoin-api-cpp/src/test/accounting.cpp
+boost/test/unit_test.hpp
+-
+boost/filesystem.hpp
+-
+fstream
+-
+main.cpp
+/home/minium/Dropbox/University/Master/Semester-IV/Code/bitcoin-api-cpp/src/test/main.cpp
+
+/home/minium/Dropbox/University/Master/Semester-IV/Code/bitcoin-api-cpp/src/test/main.cpp
+boost/test/unit_test.hpp
+-
+bitcoinapi/wallet.h
+-
+bitcoinapi/exception.h
+-
+

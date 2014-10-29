@@ -1,14 +1,19 @@
 /**
- * types.h
- * 
- * Type definitions for the JSON-RPC C++ interface.
- *
- * @author Krzysztof Okupski
+ * @file    types.h
+ * @author  Krzysztof Okupski
+ * @date    29.10.2014
  * @version 1.0
+ *
+ * Type definitions for the JSON-RPC C++ interface.
  */
 
-#ifndef WALLETTYPES_H
-#define WALLETTYPES_H
+#ifndef BITCOIN_API_TYPES_H
+#define BITCOIN_API_TYPES_H
+
+#include <string>
+#include <vector>
+
+#include <jsoncpp/json/json.h>
 
 	/* === General types === */
 	struct getinfo_t{
@@ -263,4 +268,4 @@
 		std::string lastblock;
 	};
 
-#endif /* TYPES_H_ */
+#endif

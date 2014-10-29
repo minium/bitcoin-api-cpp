@@ -348,6 +348,7 @@ BOOST_AUTO_TEST_CASE(GetTxOutSetInfo) {
 	MyFixture fx;
 
 	utxosetinfo_t response;
+
 	BOOST_REQUIRE_NO_THROW(response = fx.btc.gettxoutsetinfo());
 
 	#ifdef VERBOSE
