@@ -6,7 +6,7 @@ This is a C++ wrapper library for JSON-RPC communication with the Bitcoin daemon
 Building the library
 --------------------
 
-[![Build Status](https://travis-ci.org/minium/BitcoinAPI.svg?branch=master)](https://travis-ci.org/minium/BitcoinAPI)
+[![Build Status](https://travis-ci.org/minium/bitcoin-api-cpp.svg?branch=master)](https://travis-ci.org/minium/bitcoin-api-cpp)
 
 **Dependencies**
 
