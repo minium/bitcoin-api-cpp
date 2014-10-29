@@ -18,6 +18,7 @@ install:
   - cd build
   - cmake ..
   - make && sudo make install
+  - cd ..
 
 before_script:
   - cd build
