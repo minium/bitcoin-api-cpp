@@ -13,7 +13,7 @@ install:
   - export CXX="g++-4.8"
 
   - git clone https://github.com/cinemast/libjson-rpc-cpp
-  - cd libjsonrpccpp
+  - cd libjson-rpc-cpp
   - mkdir build
   - cd build
   - cmake ..
