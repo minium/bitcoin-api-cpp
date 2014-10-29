@@ -10,11 +10,13 @@ Building the library
 
 **Dependencies**
 
-This library requires [CMake](http://www.cmake.org/cmake/resources/software.html) and [Curl](http://curl.haxx.se) packages in order to be built. These can be installed as follows on Debian based systems:
+This library requires [CMake](http://www.cmake.org/cmake/resources/software.html) and [libjson-rpc-cpp](https://github.com/cinemast/libjson-rpc-cpp) packages in order to be built. The former can be install on Debian-based systems as follows:
 
 ```sh
-sudo apt-get install cmake libcurl4-openssl-dev
+sudo apt-get install cmake
 ```
+
+For the latter the instructions on [libjson-rpc-cpp](https://github.com/cinemast/libjson-rpc-cpp) must be followed.
 
 **Build and install**
 
@@ -53,7 +55,7 @@ int main()
 
 To successfully compile the program you need to link it with the new library:
 ```
-g++ getbalance.cpp -lbitcoin
+g++ getbalance.cpp -lbitcoinapi
 ```
 
 The full list of available API calls can be found [here](https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list). Nearly the complete list of calls is implemented and thoroughly tested.
