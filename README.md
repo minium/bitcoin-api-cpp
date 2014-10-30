@@ -10,13 +10,13 @@ Building the library
 
 **Dependencies**
 
-This library requires [CMake](http://www.cmake.org/cmake/resources/software.html) and [libjson-rpc-cpp](https://github.com/cinemast/libjson-rpc-cpp) packages in order to be built. The former can be installed on Debian-based systems as follows:
+This library requires [CMake](http://www.cmake.org/cmake/resources/software.html), [Curl](http://curl.haxx.se/libcurl/), [libjson-cpp](https://github.com/open-source-parsers/jsoncpp) and [libjson-rpc-cpp](https://github.com/cinemast/libjson-rpc-cpp) packages in order to be built. All of them, with the exception of libjson-rpc-cpp, can be installed as follows
 
 ```sh
-sudo apt-get install cmake
+sudo apt-get install cmake libcurl4-openssl-dev libjsoncpp-dev
 ```
 
-For the latter the instructions on [libjson-rpc-cpp](https://github.com/cinemast/libjson-rpc-cpp) must be followed.
+For the libjson-rpc-cpp library the instructions on [libjson-rpc-cpp](https://github.com/cinemast/libjson-rpc-cpp) must be followed.
 
 **Build and install**
 
@@ -64,7 +64,7 @@ The full list of available API calls can be found [here](https://en.bitcoin.it/w
 License
 -------
 
-The Bitcoin Messaging System is released under the terms of [MIT](http://en.wikipedia.org/wiki/MIT_License).
+The bitcoin-api-cpp library is released under the terms of [MIT](http://en.wikipedia.org/wiki/MIT_License).
 
 ```
 Copyright (c) 2014 Krzysztof Okupski
