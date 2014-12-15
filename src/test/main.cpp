@@ -3,8 +3,9 @@
 //#define VERBOSE
 
 #include <boost/test/unit_test.hpp>
-#include <bitcoinapi/wallet.h>
+#include <bitcoinapi/bitcoinapi.h>
 #include <bitcoinapi/exception.h>
+
 
 struct MyFixture {
 

@@ -37,7 +37,7 @@ This example will show how the library can be used in your project.
 Filename getbalance.cpp
 
 ```
-#include <bitcoinapi/wallet.h>
+#include <bitcoinapi/bitcoinapi.h>
 
 int main()
 {

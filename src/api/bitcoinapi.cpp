@@ -1,5 +1,5 @@
 /**
- * @file    wallet.cpp
+ * @file    bitcoinapi.cpp
  * @author  Krzysztof Okupski
  * @date    29.10.2014
  * @version 1.0
@@ -8,7 +8,7 @@
  * a running instance of Bitcoin daemon over JSON-RPC.
  */
 
-#include "wallet.h"
+#include "bitcoinapi.h"
 
 #include <string>
 #include <stdexcept>
@@ -39,7 +39,7 @@ BitcoinAPI::BitcoinAPI(const string& user, const string& password, const string&
 	conn.password = password;
 	conn.host = host;
 	conn.port = port;
-	conn.url = "http://"+ conn.user + ":"+ conn.password + "@" + conn.host + ":" + NumberToString(conn.port);
+	conn.url = "http://" + conn.user + ":" + conn.password + "@" + conn.host + ":" + NumberToString(conn.port);
 }
 
 bool BitcoinAPI::IsInit(){
