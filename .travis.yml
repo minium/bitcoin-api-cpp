@@ -18,7 +18,7 @@ install:
   - mkdir build
   - cd build
   - cmake ..
-  - make && sudo make install
+  - make -DHTTP_SERVER=NO && sudo make install
   - cd ../../bitcoin-api-cpp
 
 before_script:
