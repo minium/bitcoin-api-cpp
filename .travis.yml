@@ -17,8 +17,8 @@ install:
   - cd libjson-rpc-cpp
   - mkdir build
   - cd build
-  - cmake ..
-  - make -DHTTP_SERVER=NO && sudo make install
+  - cmake -DHTTP_SERVER=NO ..
+  - make && sudo make install
   - cd ../../bitcoin-api-cpp
 
 before_script:
