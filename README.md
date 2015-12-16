@@ -89,7 +89,7 @@ OR OTHER DEALINGS IN THE SOFTWARE.
 
 Used libraries
 --------------
-- [libjson-rpc-cpp](https://github.com/cinemast/libjson-rpc-cpp) C++ framework for JSON-RPC communication. Note that I am using a modified version of this library in order for it to work correctly with the Bitcoin daemon.
+- [libjson-rpc-cpp](https://github.com/cinemast/libjson-rpc-cpp) C++ framework for JSON-RPC communication.
 
 Acknowledgements
 ----------------
