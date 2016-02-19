@@ -13,7 +13,7 @@ SET(PATCH_VERSION 0)
 SET(SO_VERSION    0)
 
 # Add source directory
-ADD_SUBDIRECTORY(src/api)
+ADD_SUBDIRECTORY(src/bitcoinapi)
 
 FIND_PACKAGE(Boost COMPONENTS unit_test_framework)
 IF(Boost_FOUND)
