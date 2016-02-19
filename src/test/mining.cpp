@@ -121,19 +121,6 @@ BOOST_AUTO_TEST_CASE(GetDifficulty) {
 	#endif
 }
 
-BOOST_AUTO_TEST_CASE(GetHashesPerSec) {
-
-	MyFixture fx;
-	int response = -1;
-
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.gethashespersec());
-	BOOST_REQUIRE(response >= 0);
-
-	#ifdef VERBOSE
-	std::cout << "=== gethashespersec ===" << std::endl;
-	std::cout << response << std::endl << std::endl;
-	#endif
-}
 
 BOOST_AUTO_TEST_CASE(GetMiningInfo) {
 
@@ -159,37 +146,6 @@ BOOST_AUTO_TEST_CASE(GetMiningInfo) {
 	#endif
 }
 
-BOOST_AUTO_TEST_CASE(GetWork) {
-
-	MyFixture fx;
-
-	std::string param =
-			"000000020597ba1f0cd423b2a3abb0259a54ee5f783077a4ad45fb"
-			"6200000218000000008348d1339e6797e2b15e9a3f2fb7da08768e"
-			"99f02727e4227e02903e43a42b31511553101a051f3c0000000000"
-			"000080000000000000000000000000000000000000000000000000"
-			"0000000000000000000000000000000080020000";
-
-	workdata_t response;
-	bool response2;
-
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getwork());
-	BOOST_REQUIRE(response.midstate.size() == 64);
-	BOOST_REQUIRE(response.data.size() == 256);
-	BOOST_REQUIRE(response.hash1.size() == 128);
-	BOOST_REQUIRE(response.target.size() == 64);
-
-	BOOST_REQUIRE_NO_THROW(response2 = fx.btc.getwork(param));
-	BOOST_REQUIRE(response2 == false);
-
-	#ifdef VERBOSE
-	std::cout << "=== getwork ===" << std::endl;
-	std::cout << "midstate: " << response.midstate << std::endl;
-	std::cout << "data: " << response.data << std::endl;
-	std::cout << "hash: " << response.hash1 << std::endl;
-	std::cout << "target: " << response.target << std::endl << std::endl;
-	#endif
-}
 
 BOOST_AUTO_TEST_CASE(ListSinceBlock) {
 

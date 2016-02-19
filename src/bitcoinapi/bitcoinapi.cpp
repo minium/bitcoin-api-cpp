@@ -952,14 +952,6 @@ double BitcoinAPI::getdifficulty() {
 	return result.asDouble();
 }
 
-int BitcoinAPI::gethashespersec() {
-	string command = "gethashespersec";
-	Value params, result;
-	result = sendcommand(command, params);
-
-	return result.asInt();
-}
-
 mininginfo_t BitcoinAPI::getmininginfo() {
 	string command = "getmininginfo";
 	Value params, result;
@@ -982,30 +974,6 @@ mininginfo_t BitcoinAPI::getmininginfo() {
 	return ret;
 }
 
-workdata_t BitcoinAPI::getwork() {
-	string command = "getwork";
-	Value params, result;
-	workdata_t ret;
-
-	result = sendcommand(command, params);
-
-	ret.midstate = result["midstate"].asString();
-	ret.data = result["data"].asString();
-	ret.hash1 = result["hash1"].asString();
-	ret.target = result["target"].asString();
-
-	return ret;
-}
-
-bool BitcoinAPI::getwork(const string& data) {
-	string command = "getwork";
-	Value params, result;
-
-	params.append(data);
-	result = sendcommand(command, params);
-
-	return result.asBool();
-}
 
 txsinceblock_t BitcoinAPI::listsinceblock(const string& blockhash, int target_confirmations) {
 	string command = "listsinceblock";
