@@ -30,20 +30,17 @@ using std::string;
 using std::vector;
 
 
-BitcoinAPI::BitcoinAPI(){
-	conn = {};
+BitcoinAPI::BitcoinAPI(const string& user, const string& password, const string& host, int port)
+: httpClient(new HttpClient("http://" + user + ":" + password + "@" + host + ":" + NumberToString(port))),
+  client(new Client(*httpClient, JSONRPC_CLIENT_V1))
+{
+    httpClient->SetTimeout(20000);
 }
 
-BitcoinAPI::BitcoinAPI(const string& user, const string& password, const string& host, int port){
-	conn.user = user;
-	conn.password = password;
-	conn.host = host;
-	conn.port = port;
-	conn.url = "http://" + conn.user + ":" + conn.password + "@" + conn.host + ":" + NumberToString(conn.port);
-}
-
-bool BitcoinAPI::IsInit(){
-	return !(conn.user.empty() || conn.password.empty() || conn.host.empty() || conn.port == 0);
+BitcoinAPI::~BitcoinAPI()
+{
+    delete client;
+    delete httpClient;
 }
 
 string BitcoinAPI::NumberToString (int number){
@@ -59,14 +56,10 @@ int BitcoinAPI::StringToNumber (const string &text){
 }
 
 Value BitcoinAPI::sendcommand(const string& command, const Value& params){    
-    HttpClient client(conn.url);
-    client.SetTimeout(20000);
-
-    Client c(client, JSONRPC_CLIENT_V1);
     Value result;
 
     try{
-		result = c.CallMethod(command, params);
+		result = client->CallMethod(command, params);
 	}
 	catch (JsonRpcException& e){
 		BitcoinException err(e.GetCode(), e.GetMessage());
