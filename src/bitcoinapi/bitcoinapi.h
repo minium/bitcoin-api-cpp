@@ -14,26 +14,19 @@
 #include "types.h"
 #include "exception.h"
 
+namespace jsonrpc { class HttpClient; class Client; }
 
 class BitcoinAPI
 {
 
 private:
-    struct connection
-    {
-	    std::string url;
-	    std::string user;
-	    std::string password;
-	    std::string host;
-	    int port;
-    } conn;
+    jsonrpc::HttpClient * httpClient;
+    jsonrpc::Client * client;
 
 public:
-    /* === Constructors === */
-    BitcoinAPI();
+    /* === Constructor and Destructor === */
     BitcoinAPI(const std::string& user, const std::string& password, const std::string& host, int port);
-
-    bool IsInit();
+    ~BitcoinAPI();
 
     /* === Auxiliary functions === */
     Json::Value sendcommand(const std::string& command, const Json::Value& params);
