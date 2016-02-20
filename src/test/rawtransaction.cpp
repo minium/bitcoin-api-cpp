@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_CASE(SendRawTransaction) {
 	try{
 		fx.btc.sendrawtransaction(txid, false);
 	}catch(BitcoinException& e){
-		BOOST_REQUIRE(e.getCode() == -25);
+		BOOST_REQUIRE(e.getCode() == -25 || e.getCode() == -27);
 	}
 }
 

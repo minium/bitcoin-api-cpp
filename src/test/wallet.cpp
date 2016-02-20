@@ -205,6 +205,7 @@ BOOST_AUTO_TEST_CASE(KeypoolRefill) {
 	int newkeypoolsize;
 	int refreshedkeypoolsize;	
 
+
 	/* Get current keypool size and use one key */
 	BOOST_REQUIRE_NO_THROW(oldkeypoolsize = fx.btc.getinfo().keypoolsize);
 	BOOST_REQUIRE_NO_THROW(fx.btc.getnewaddress());
