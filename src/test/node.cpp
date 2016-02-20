@@ -33,7 +33,11 @@ BOOST_AUTO_TEST_CASE(GetAddedNodeInfo) {
 	MyFixture fx;
 
 	std::vector<nodeinfo_t> response;
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getaddednodeinfo(true, "127.0.0.255"));
+	try {
+		response = fx.btc.getaddednodeinfo(true, "127.0.0.255");
+	} catch (BitcoinException& e) {
+		BOOST_REQUIRE_MESSAGE(false, "Error(" << e.getCode() << "): " << e.getMessage());
+	}
 
 	#ifdef VERBOSE
 	std::cout << "=== getaddednodeinfo ===" << std::endl;

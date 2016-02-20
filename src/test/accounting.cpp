@@ -109,7 +109,7 @@ BOOST_AUTO_TEST_CASE(GetTransaction) {
 	try {
 		response = fx.btc.gettransaction(txid, false);
 	} catch (BitcoinException& e) {
-		BOOST_REQUIRE(e.getCode() == -5);
+		BOOST_REQUIRE_MESSAGE(e.getCode() == -5, "Error(" << e.getCode() << "): " << e.getMessage());
 		return;
 	}
 
@@ -374,7 +374,11 @@ BOOST_AUTO_TEST_CASE(GetTxOutSetInfo) {
 
 	utxosetinfo_t response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.gettxoutsetinfo());
+	try {
+		response = fx.btc.gettxoutsetinfo();
+	} catch (BitcoinException& e) {
+		BOOST_REQUIRE_MESSAGE(false, "Error(" << e.getCode() << "): " << e.getMessage());
+	}
 
 	#ifdef VERBOSE
 	std::cout << "=== gettxoutsetinfo ===" << std::endl;

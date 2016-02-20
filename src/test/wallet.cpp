@@ -44,8 +44,7 @@ BOOST_AUTO_TEST_CASE(EncryptWallet) {
 	try {
 		fx.btc.encryptwallet("123456");
 	} catch (BitcoinException& e) {
-		BOOST_REQUIRE(e.getCode() == -15);
-		BOOST_WARN_MESSAGE(false, e.getMessage());
+		BOOST_REQUIRE_MESSAGE(false, "Error(" << e.getCode() << "): " << e.getMessage());
 	}
 
 }
@@ -235,7 +234,12 @@ BOOST_AUTO_TEST_CASE(SetTxFee) {
 	bool response;
 	double getinfofee;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.settxfee(0.0002));
+	try {
+		response = fx.btc.settxfee(0.0002);
+	} catch (BitcoinException& e) {
+		BOOST_REQUIRE_MESSAGE(false, "Error(" << e.getCode() << "): " << e.getMessage());
+	}
+
 	BOOST_REQUIRE(response == true);
 
 	BOOST_REQUIRE_NO_THROW(getinfofee = fx.btc.getinfo().paytxfee);
