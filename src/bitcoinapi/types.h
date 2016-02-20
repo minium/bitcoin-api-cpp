@@ -115,10 +115,13 @@
 		std::string address;
 		std::string category;
 		double amount;
+		int vout;
+		double fee;
 	};
 
 	struct gettransaction_t{
 		double amount;
+		double fee;
 		int confirmations;
 		std::string blockhash;
 		int blockindex;

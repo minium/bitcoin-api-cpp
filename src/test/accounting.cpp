@@ -104,13 +104,19 @@ BOOST_AUTO_TEST_CASE(GetTransaction) {
 
 	MyFixture fx;
 
-	std::string param = "5a8f750129702d4e0ccd3e6fa91193d8191ea9742a36835b43d3b3c56ad816d1";
+	std::string txid = "5a8f750129702d4e0ccd3e6fa91193d8191ea9742a36835b43d3b3c56ad816d1";
 	gettransaction_t response;
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.gettransaction(param));
+	try {
+		response = fx.btc.gettransaction(txid, false);
+	} catch (BitcoinException& e) {
+		BOOST_REQUIRE(e.getCode() == -5);
+		return;
+	}
 
 	#ifdef VERBOSE
 	std::cout << "=== gettransaction ===" << std::endl;
 	std::cout << "Amount: " << response.amount << std::endl;
+	std::cout << "Fee: " << response.fee << std::endl;
 	std::cout << "Confirmations: " << response.confirmations << std::endl;
 	std::cout << "Blockhash: " << response.blockhash << std::endl;
 	std::cout << "Blockindex: " << response.blockindex << std::endl;
@@ -128,10 +134,12 @@ BOOST_AUTO_TEST_CASE(GetTransaction) {
 
 	for(std::vector<transactiondetails_t>::iterator it = response.details.begin(); it != response.details.end(); it++){
 		transactiondetails_t det = (*it);
-		std::cout << "    Account: " << det.account << std::endl;
+		std::cout << "  Account: " << det.account << std::endl;
 		std::cout << "  Address: " << det.address << std::endl;
 		std::cout << "  Category: " << det.category << std::endl;
 		std::cout << "  Amount: " << det.amount << std::endl;
+		std::cout << "  Vout: " << det.vout << std::endl;
+		std::cout << "  Fee: " << det.fee << std::endl;
 	}
 
 	std::cout << "Hex: " << response.hex << std::endl << std::endl;
@@ -176,7 +184,14 @@ BOOST_AUTO_TEST_CASE(GetAccount) {
 
 	std::string address;
 	std::string response;
-	BOOST_REQUIRE_NO_THROW(address = fx.btc.getnewaddress("TestUser"));
+	
+	try {
+		address = fx.btc.getnewaddress("TestUser");
+	} catch (BitcoinException& e) {
+		BOOST_REQUIRE(e.getCode() == -12);
+		BOOST_WARN_MESSAGE(false, e.getMessage());
+	}
+
 	BOOST_REQUIRE_NO_THROW(response = fx.btc.getaccount(address));
 	BOOST_REQUIRE(response == "TestUser");
 
@@ -193,6 +208,16 @@ BOOST_AUTO_TEST_CASE(GetAccountAddress) {
 	std::string address;
 	std::string response;
 
+	/* Unlock wallet and refill the keypool */
+	try {
+		fx.btc.walletpassphrase("123456", 10);
+	} catch (BitcoinException& e) {
+		BOOST_REQUIRE(e.getCode() == -14);
+		BOOST_WARN_MESSAGE(false, e.getMessage());
+		return;
+	}
+
+	BOOST_REQUIRE_NO_THROW(fx.btc.keypoolrefill());
 	BOOST_REQUIRE_NO_THROW(address = fx.btc.getnewaddress("TestUser"));
 	BOOST_REQUIRE(address.length() >= 27 && address.length() <= 34);
 

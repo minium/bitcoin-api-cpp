@@ -44,7 +44,7 @@ public:
 
     /* === Wallet functions === */
     void backupwallet(const std::string& destination);
-    void encryptwallet(const std::string& passphrase);
+    std::string encryptwallet(const std::string& passphrase);
     void walletlock();
     void walletpassphrase(const std::string& passphrase, int timeout);
     void walletpassphrasechange(const std::string& oldpassphrase, const std::string& newpassphrase);
@@ -80,7 +80,7 @@ public:
     std::vector<accountinfo_t> listreceivedbyaccount(int minconf = 1, bool includeempty = false);
     std::vector<addressinfo_t> listreceivedbyaddress(int minconf = 1, bool includeempty = false);
 
-    gettransaction_t gettransaction(const std::string& tx);
+    gettransaction_t gettransaction(const std::string& tx, bool watch);
     std::vector<transactioninfo_t> listtransactions();
     std::vector<transactioninfo_t> listtransactions(const std::string& account, int count = 10, int from = 0);
 
@@ -136,7 +136,7 @@ public:
     /* === Low level calls === */
     getrawtransaction_t getrawtransaction(const std::string& txid, int verbose = 0);
     decoderawtransaction_t decoderawtransaction(const std::string& hexString);
-    std::string sendrawtransaction(const std::string& hexString);
+    std::string sendrawtransaction(const std::string& hexString, bool highFee);
 
     std::string createrawtransaction(const std::vector<txout_t>& inputs, const std::map<std::string, double>& amounts);
     signrawtransaction_t signrawtransaction(const std::string& rawTx, const std::vector<signrawtxin_t> inputs = std::vector<signrawtxin_t>());

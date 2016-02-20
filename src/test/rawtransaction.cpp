@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE(GetRawTransactionVerbose) {
 	MyFixture fx;
 
 	getrawtransaction_t response;
-	std::string txid = "5a8f750129702d4e0ccd3e6fa91193d8191ea9742a36835b43d3b3c56ad816d1";
+	std::string txid = "0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098";
 
 	BOOST_REQUIRE_NO_THROW(response = fx.btc.getrawtransaction(txid,1));
 
@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_CASE(SendRawTransaction) {
 
 	MyFixture fx;
 
-	std::string param =
+	std::string txid =
 			"0100000001da95ea9ded6ca4d6d47ddebf36e7f6a76992573dfd836ae46abf"
 			"12b3ac4d274b010000006b483045022100c475588d9831bc804005e28d9187"
 			"864d99804c835a638697911837cc323a83bc02205dc77df1f6e0e1723d355a"
@@ -133,9 +133,9 @@ BOOST_AUTO_TEST_CASE(SendRawTransaction) {
 			"c3105b302aa588ac00000000";
 
 	try{
-		fx.btc.sendrawtransaction(param);
+		fx.btc.sendrawtransaction(txid, false);
 	}catch(BitcoinException& e){
-		BOOST_REQUIRE(e.getCode() == -5 || e.getCode() == -27);
+		BOOST_REQUIRE(e.getCode() == -25);
 	}
 }
 
@@ -193,7 +193,7 @@ BOOST_AUTO_TEST_CASE(GetRawMempool) {
 
 	std::vector<std::string> response;
 	BOOST_REQUIRE_NO_THROW(response = fx.btc.getrawmempool());
-	BOOST_REQUIRE(response.size() >= 20);
+	BOOST_REQUIRE(response.size() >= 0);
 
 	#ifdef VERBOSE
 	std::cout << "=== getrawmempool ===" << std::endl;

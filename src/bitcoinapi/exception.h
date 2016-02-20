@@ -40,7 +40,7 @@ public:
 		std::string pattern = ": ";
 		unsigned int pos = out.find(pattern);
 		if(pos <= out.size()){
-			out.erase(pos, pattern.size());
+			out.erase(0, pos+pattern.size());
 			out[0] = toupper(out[0]);
 		}
 

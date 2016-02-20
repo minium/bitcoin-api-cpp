@@ -232,11 +232,12 @@ void BitcoinAPI::backupwallet(const string& destination) {
 	sendcommand(command, params);
 }
 
-void BitcoinAPI::encryptwallet(const string& passphrase) {
+string BitcoinAPI::encryptwallet(const string& passphrase) {
 	string command = "encryptwallet";
-	Value params;
+	Value params, result;
 	params.append(passphrase);
-	sendcommand(command, params);
+	result = sendcommand(command, params);
+	return result.asString();
 }
 
 void BitcoinAPI::walletlock() {
@@ -491,14 +492,16 @@ vector<addressinfo_t> BitcoinAPI::listreceivedbyaddress(int minconf, bool includ
 	return ret;
 }
 
-gettransaction_t BitcoinAPI::gettransaction(const string& tx) {
+gettransaction_t BitcoinAPI::gettransaction(const string& tx, bool watch) {
 	string command = "gettransaction";
 	Value params, result;
 	gettransaction_t ret;
 	params.append(tx);
+	params.append(watch);
 	result = sendcommand(command, params);
 
 	ret.amount = result["amount"].asDouble();
+	ret.fee = result["fee"].asDouble();
 	ret.confirmations = result["confirmations"].asInt();
 	ret.blockhash = result["blockhash"].asString();
 	ret.blockindex = result["blockindex"].asInt();
@@ -521,6 +524,8 @@ gettransaction_t BitcoinAPI::gettransaction(const string& tx) {
 		tmp.address = val["address"].asString();
 		tmp.category = val["category"].asString();
 		tmp.amount = val["amount"].asDouble();
+		tmp.vout = val["vout"].asInt();
+		tmp.fee = val["fee"].asDouble();
 
 		ret.details.push_back(tmp);
 	}
@@ -1115,10 +1120,11 @@ decoderawtransaction_t BitcoinAPI::decoderawtransaction(const string& hexString)
 	return ret;
 }
 
-string BitcoinAPI::sendrawtransaction(const string& hexString) {
+string BitcoinAPI::sendrawtransaction(const string& hexString, bool highFee) {
 	string command = "sendrawtransaction";
 	Value params, result;
 	params.append(hexString);
+	params.append(highFee);
 	result = sendcommand(command, params);
 
 	return result.asString();
@@ -1221,6 +1227,9 @@ vector<string> BitcoinAPI::getrawmempool() {
 	Value params, result;
 	vector<string> ret;
 
+	// TBD
+	// Two different return types here
+	params.append(false);
 	result = sendcommand(command, params);
 
 	for(ValueIterator it = result.begin(); it != result.end(); it++){

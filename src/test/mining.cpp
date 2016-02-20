@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(GetBlockHash) {
 	MyFixture fx;
 	std::string response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getblockhash(300000));
+	BOOST_REQUIRE_NO_THROW(response = fx.btc.getblockhash(1));
 	BOOST_REQUIRE(response.size() == 64);
 
 	#ifdef VERBOSE
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(GetBlockCount) {
 	int response;
 
 	BOOST_REQUIRE_NO_THROW(response = fx.btc.getblockcount());
-	BOOST_REQUIRE(response >= 300000);
+	BOOST_REQUIRE(response >= 10);
 
 	#ifdef VERBOSE
 	std::cout << "=== getblockcount ===" << std::endl;
@@ -53,11 +53,11 @@ BOOST_AUTO_TEST_CASE(GetBlock) {
 	MyFixture fx;
 	blockinfo_t response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getblock("000000000000000082ccf8f1557c5d40b21edabb18d2d691cfbf87118bac7254"));
-	BOOST_REQUIRE(response.height == 300000);
+	BOOST_REQUIRE_NO_THROW(response = fx.btc.getblock("00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048"));
+	BOOST_REQUIRE(response.height == 1);
 
 	#ifdef VERBOSE
-	std::cout << "=== getblock (300000th block) ===" << std::endl;
+	std::cout << "=== getblock (10th block) ===" << std::endl;
 	std::cout << "hash: " << response.hash << std::endl;
 	std::cout << "confirmations: " << response.confirmations << std::endl;
 	std::cout << "size: " << response.size << std::endl;
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE(GetDifficulty) {
 	double response;
 
 	BOOST_REQUIRE_NO_THROW(response = fx.btc.getdifficulty());
-	BOOST_REQUIRE(response >= 10000000000);
+	BOOST_REQUIRE(response >= 100000);
 
 	#ifdef VERBOSE
 	std::cout << "=== getdifficulty ===" << std::endl;
@@ -128,7 +128,7 @@ BOOST_AUTO_TEST_CASE(GetMiningInfo) {
 	mininginfo_t response;
 
 	BOOST_REQUIRE_NO_THROW(response = fx.btc.getmininginfo());
-	BOOST_REQUIRE(response.blocks >= 300000);
+	BOOST_REQUIRE(response.blocks > 1);
 
 	#ifdef VERBOSE
 	std::cout << "=== getmininginfo ===" << std::endl;
