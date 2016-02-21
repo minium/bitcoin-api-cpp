@@ -17,8 +17,8 @@ BOOST_AUTO_TEST_CASE(GetBalance) {
 
 	MyFixture fx;
 
-	BOOST_REQUIRE_NO_THROW(fx.btc.getbalance());
-	BOOST_REQUIRE_NO_THROW(fx.btc.getbalance(""));
+	NO_THROW(fx.btc.getbalance());
+	NO_THROW(fx.btc.getbalance(""));
 
 	#ifdef VERBOSE
 	double response = fx.btc.getbalance();
@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_CASE(GetReceivedByAccount) {
 
 	MyFixture fx;
 
-	BOOST_REQUIRE_NO_THROW(fx.btc.getreceivedbyaccount(""));
+	NO_THROW(fx.btc.getreceivedbyaccount(""));
 
 	#ifdef VERBOSE
 	double response = fx.btc.getreceivedbyaccount("");
@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_CASE(GetReceivedByAddress) {
 
 	std::string param = "36m2bHwsUnkpGsZgVAEmeJRf2CeViDm6RV";
 
-	BOOST_REQUIRE_NO_THROW(fx.btc.getreceivedbyaddress(param));
+	NO_THROW(fx.btc.getreceivedbyaddress(param));
 
 	#ifdef VERBOSE
 	double response = fx.btc.getreceivedbyaddress(param);
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(ListReceivedByAccount) {
 	MyFixture fx;
 
 	std::vector<accountinfo_t> response;
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.listreceivedbyaccount(1,true));
+	NO_THROW(response = fx.btc.listreceivedbyaccount(1,true));
 
 	#ifdef VERBOSE
 	std::cout << "=== listreceivedbyaccount ===" << std::endl;
@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_CASE(ListReceivedByAddress) {
 	MyFixture fx;
 
 	std::vector<addressinfo_t> response;
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.listreceivedbyaddress(1,true));
+	NO_THROW(response = fx.btc.listreceivedbyaddress(1,true));
 
 	#ifdef VERBOSE
 	std::cout << "=== listreceivedbyaccount ===" << std::endl;
@@ -106,12 +106,8 @@ BOOST_AUTO_TEST_CASE(GetTransaction) {
 
 	std::string txid = "5a8f750129702d4e0ccd3e6fa91193d8191ea9742a36835b43d3b3c56ad816d1";
 	gettransaction_t response;
-	try {
-		response = fx.btc.gettransaction(txid, false);
-	} catch (BitcoinException& e) {
-		BOOST_REQUIRE(e.getCode() == -5);
-		return;
-	}
+	
+	NO_THROW_EXCEPT(response = fx.btc.gettransaction(txid, false), -5);
 
 	#ifdef VERBOSE
 	std::cout << "=== gettransaction ===" << std::endl;
@@ -151,7 +147,7 @@ BOOST_AUTO_TEST_CASE(ListTransactions) {
 	MyFixture fx;
 
 	std::vector<transactioninfo_t> response;
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.listtransactions());
+	NO_THROW(response = fx.btc.listtransactions());
 
 	#ifdef VERBOSE
 	std::cout << "=== listtransactions ===" << std::endl;
@@ -185,14 +181,9 @@ BOOST_AUTO_TEST_CASE(GetAccount) {
 	std::string address;
 	std::string response;
 	
-	try {
-		address = fx.btc.getnewaddress("TestUser");
-	} catch (BitcoinException& e) {
-		BOOST_REQUIRE(e.getCode() == -12);
-		BOOST_WARN_MESSAGE(false, e.getMessage());
-	}
+	NO_THROW_EXCEPT(address = fx.btc.getnewaddress("TestUser"), -12);
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getaccount(address));
+	NO_THROW(response = fx.btc.getaccount(address));
 	BOOST_REQUIRE(response == "TestUser");
 
 	#ifdef VERBOSE
@@ -209,16 +200,10 @@ BOOST_AUTO_TEST_CASE(GetAccountAddress) {
 	std::string response;
 
 	/* Unlock wallet and refill the keypool */
-	try {
-		fx.btc.walletpassphrase("123456", 10);
-	} catch (BitcoinException& e) {
-		BOOST_REQUIRE(e.getCode() == -14);
-		BOOST_WARN_MESSAGE(false, e.getMessage());
-		return;
-	}
+	NO_THROW_EXCEPT(fx.btc.walletpassphrase("123456", 10), -14);
 
-	BOOST_REQUIRE_NO_THROW(fx.btc.keypoolrefill());
-	BOOST_REQUIRE_NO_THROW(address = fx.btc.getnewaddress("TestUser"));
+	NO_THROW(fx.btc.keypoolrefill());
+	NO_THROW(address = fx.btc.getnewaddress("TestUser"));
 	BOOST_REQUIRE(address.length() >= 27 && address.length() <= 34);
 
 	#ifdef VERBOSE
@@ -232,7 +217,7 @@ BOOST_AUTO_TEST_CASE(GetAddressesByAccount) {
 	MyFixture fx;
 
 	std::vector<std::string> response;
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getaddressesbyaccount("TestUser"));
+	NO_THROW(response = fx.btc.getaddressesbyaccount("TestUser"));
 	BOOST_REQUIRE(response.size() >= 1);
 
 	#ifdef VERBOSE
@@ -249,7 +234,7 @@ BOOST_AUTO_TEST_CASE(ListAccounts) {
 	MyFixture fx;
 
 	std::map<std::string, double> response;
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.listaccounts());
+	NO_THROW(response = fx.btc.listaccounts());
 
 	#ifdef VERBOSE
 	std::cout << "=== listaccounts ===" << std::endl;
@@ -287,8 +272,8 @@ BOOST_AUTO_TEST_CASE(SetAccount) {
 	MyFixture fx;
 
 	std::string address;
-	BOOST_REQUIRE_NO_THROW(address = fx.btc.getnewaddress("TestUser"))
-	BOOST_REQUIRE_NO_THROW(fx.btc.setaccount(address,"TestUser2"));
+	NO_THROW_EXCEPT(address = fx.btc.getnewaddress("TestUser"), -12);
+	NO_THROW(fx.btc.setaccount(address,"TestUser2"));
 }
 
 BOOST_AUTO_TEST_CASE(SendToAddress) {
@@ -348,7 +333,7 @@ BOOST_AUTO_TEST_CASE(GetTxOut) {
 	std::string txid = "105d8fd318533d4559492b85a27039f2bf8bdfed39b8e671753289eaeb3829ae";
 	utxoinfo_t response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.gettxout(txid, 0));
+	NO_THROW(response = fx.btc.gettxout(txid, 0));
 
 	#ifdef VERBOSE
 	std::cout << "=== gettxout ===" << std::endl;
@@ -374,7 +359,7 @@ BOOST_AUTO_TEST_CASE(GetTxOutSetInfo) {
 
 	utxosetinfo_t response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.gettxoutsetinfo());
+	NO_THROW(response = fx.btc.gettxoutsetinfo());
 
 	#ifdef VERBOSE
 	std::cout << "=== gettxoutsetinfo ===" << std::endl;
@@ -393,7 +378,7 @@ BOOST_AUTO_TEST_CASE(ListUnspent) {
 	MyFixture fx;
 
 	std::vector<unspenttxout_t> response;
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.listunspent());
+	NO_THROW(response = fx.btc.listunspent());
 
 	#ifdef VERBOSE
 	std::cout << "=== listunspent ===" << std::endl;
@@ -415,7 +400,7 @@ BOOST_AUTO_TEST_CASE(ListLockUnspent) {
 	MyFixture fx;
 
 	std::vector<txout_t> response;
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.listlockunspent());
+	NO_THROW(response = fx.btc.listlockunspent());
 
 	#ifdef VERBOSE
 	std::cout << "=== listlockunspent ===" << std::endl;
@@ -436,7 +421,7 @@ BOOST_AUTO_TEST_CASE(LockUnspent) {
 	param.push_back(tmp);
 	bool response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.lockunspent(false, param));
+	NO_THROW(response = fx.btc.lockunspent(false, param));
 	BOOST_REQUIRE(response == true);
 }
 
@@ -445,7 +430,7 @@ BOOST_AUTO_TEST_CASE(ListAddressGroupings) {
 	MyFixture fx;
 	std::vector< std::vector<addressgrouping_t> > response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.listaddressgroupings());
+	NO_THROW(response = fx.btc.listaddressgroupings());
 
 	#ifdef VERBOSE
 	std::cout << "=== listaddressgroupings ===" << std::endl;

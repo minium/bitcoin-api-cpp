@@ -6,6 +6,23 @@
 #include <bitcoinapi/bitcoinapi.h>
 #include <bitcoinapi/exception.h>
 
+#define NO_THROW(METHOD)                    \
+  try {                                     \
+    (METHOD);                               \
+  } catch (BitcoinException& e) {           \
+    BOOST_REQUIRE_MESSAGE(false, e.what()); \
+  }
+
+#define NO_THROW_EXCEPT(METHOD, EXCEPTION)        \
+  try {                                           \
+    (METHOD);                                     \
+  } catch (BitcoinException& e) {                 \
+    std::stringstream err;                                        \
+    err << "Error (" << e.getCode() << "): " << e.getMessage();   \
+    BOOST_REQUIRE_MESSAGE(e.getCode() == (EXCEPTION), err.str()); \
+    BOOST_WARN_MESSAGE(false, err.str());         \
+    return;                                       \
+  }
 
 struct MyFixture {
 

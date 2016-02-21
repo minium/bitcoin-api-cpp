@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE(GetRawTransactionVerbose) {
 	getrawtransaction_t response;
 	std::string txid = "0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098";
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getrawtransaction(txid,1));
+	NO_THROW(response = fx.btc.getrawtransaction(txid,1));
 
 	#ifdef VERBOSE
 	std::cout << "=== getrawtransaction (verbose) ===" << std::endl;
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE(DecodeRawTransaction) {
 			"828fd388acec00a0a9010000001976a9146bbc6f8dcd25dfe35222e991b4a1"
 			"c3105b302aa588ac00000000";
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.decoderawtransaction(rawHexTx));
+	NO_THROW(response = fx.btc.decoderawtransaction(rawHexTx));
 
 	#ifdef VERBOSE
 	std::cout << "=== decoderawtransaction ===" << std::endl;
@@ -132,11 +132,7 @@ BOOST_AUTO_TEST_CASE(SendRawTransaction) {
 			"828fd388acec00a0a9010000001976a9146bbc6f8dcd25dfe35222e991b4a1"
 			"c3105b302aa588ac00000000";
 
-	try{
-		fx.btc.sendrawtransaction(txid, false);
-	}catch(BitcoinException& e){
-		BOOST_REQUIRE(e.getCode() == -25 || e.getCode() == -27);
-	}
+	NO_THROW_EXCEPT(fx.btc.sendrawtransaction(txid, false), -27);
 }
 
 BOOST_AUTO_TEST_CASE(CreateRawTransaction) {
@@ -155,7 +151,7 @@ BOOST_AUTO_TEST_CASE(CreateRawTransaction) {
 			"94a339cdf320100000000ffffffff0110270000000000001976a9148dd50234"
 			"78a002a1d3551445c3479f6f6ae611ad88ac00000000";
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.createrawtransaction(param1, param2));
+	NO_THROW(response = fx.btc.createrawtransaction(param1, param2));
 	BOOST_REQUIRE(response == expected);
 }
 
@@ -181,7 +177,7 @@ BOOST_AUTO_TEST_CASE(SignRawTransaction) {
 
 	signrawtransaction_t response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.signrawtransaction(param1,param2,param3,"ALL"));
+	NO_THROW(response = fx.btc.signrawtransaction(param1,param2,param3,"ALL"));
 	BOOST_REQUIRE(response.hex.size() >= param1.size() + 100);
 	BOOST_REQUIRE(response.complete == true);
 
@@ -192,7 +188,7 @@ BOOST_AUTO_TEST_CASE(GetRawMempool) {
 	MyFixture fx;
 
 	std::vector<std::string> response;
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getrawmempool());
+	NO_THROW(response = fx.btc.getrawmempool());
 	BOOST_REQUIRE(response.size() >= 0);
 
 	#ifdef VERBOSE
@@ -209,7 +205,7 @@ BOOST_AUTO_TEST_CASE(GetRawChangeAddress) {
 	MyFixture fx;
 
 	std::string response;
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getrawchangeaddress());
+	NO_THROW_EXCEPT(response = fx.btc.getrawchangeaddress(), -12);
 	BOOST_REQUIRE(response.size() >= 27 && response.size() <= 34);
 
 	#ifdef VERBOSE

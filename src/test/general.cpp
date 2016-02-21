@@ -10,8 +10,9 @@ BOOST_AUTO_TEST_SUITE(GeneralTests)
 BOOST_AUTO_TEST_CASE(GetInfo) {
 
 	MyFixture fx;
-
-	getinfo_t info = fx.btc.getinfo();
+	getinfo_t info;
+	
+	NO_THROW(info = fx.btc.getinfo());
 	BOOST_REQUIRE(info.protocolversion >= 70002);
 
 	#ifdef VERBOSE

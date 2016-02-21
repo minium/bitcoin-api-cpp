@@ -11,21 +11,7 @@ BOOST_AUTO_TEST_CASE(AddNode) {
 	MyFixture fx;
 
 	/* Add node */
-	BOOST_REQUIRE_NO_THROW(fx.btc.addnode("127.0.0.255", "add"));
-
-	std::vector<nodeinfo_t> nodeVec;
-	BOOST_REQUIRE_NO_THROW(nodeVec = fx.btc.getaddednodeinfo(false));
-
-	bool found = false;
-	for(std::vector<nodeinfo_t>::iterator it = nodeVec.begin(); it != nodeVec.end(); it++){
-		nodeinfo_t node = (*it);
-		if(node.addednode == "127.0.0.255"){
-			found = true;
-		}
-	}
-	BOOST_REQUIRE(found);
-
-
+	NO_THROW(fx.btc.addnode("127.0.0.255", "add"));
 }
 
 BOOST_AUTO_TEST_CASE(GetAddedNodeInfo) {
@@ -33,7 +19,7 @@ BOOST_AUTO_TEST_CASE(GetAddedNodeInfo) {
 	MyFixture fx;
 
 	std::vector<nodeinfo_t> response;
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getaddednodeinfo(true, "127.0.0.255"));
+	NO_THROW(response = fx.btc.getaddednodeinfo(true, "127.0.0.255"));
 
 	#ifdef VERBOSE
 	std::cout << "=== getaddednodeinfo ===" << std::endl;
@@ -56,10 +42,10 @@ BOOST_AUTO_TEST_CASE(RemoveNode){
 
 	MyFixture fx;
 
-	BOOST_REQUIRE_NO_THROW(fx.btc.addnode("127.0.0.255", "remove"));
+	NO_THROW(fx.btc.addnode("127.0.0.255", "remove"));
 
 	std::vector<nodeinfo_t> nodeVec;
-	BOOST_REQUIRE_NO_THROW(nodeVec = fx.btc.getaddednodeinfo(false));
+	NO_THROW(nodeVec = fx.btc.getaddednodeinfo(false));
 
 	bool found = false;
 	for(std::vector<nodeinfo_t>::iterator it = nodeVec.begin(); it != nodeVec.end(); it++){
@@ -76,7 +62,7 @@ BOOST_AUTO_TEST_CASE(ConnectionCount){
 	MyFixture fx;
 
 	int count;
-	BOOST_REQUIRE_NO_THROW(count = fx.btc.getconnectioncount());
+	NO_THROW(count = fx.btc.getconnectioncount());
 	BOOST_REQUIRE(count >= 1);
 }
 
@@ -85,7 +71,7 @@ BOOST_AUTO_TEST_CASE(GetPeerInfo){
 	MyFixture fx;
 
 	std::vector<peerinfo_t> response;
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getpeerinfo());
+	NO_THROW(response = fx.btc.getpeerinfo());
 	BOOST_REQUIRE(response.size() >= 1);
 
 	#ifdef VERBOSE
