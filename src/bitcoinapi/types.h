@@ -38,7 +38,7 @@
 	/* === Node types === */
 	struct netaddress_t{
 		std::string address;
-		bool connected;
+		std::string connected;
 	};
 
 	struct nodeinfo_t{

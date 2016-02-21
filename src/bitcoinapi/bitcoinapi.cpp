@@ -140,7 +140,7 @@ vector<nodeinfo_t> BitcoinAPI::getaddednodeinfo(bool dns) {
 				net.address = val2["address"].asString();
 
 				//TODO: Bug in here. Always shows true instead of false.
-				net.connected = val2["connected"].asBool();
+				net.connected = val2["connected"].asString();
 
 				node.addresses.push_back(net);
 			}
