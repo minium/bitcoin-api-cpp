@@ -174,7 +174,7 @@ vector<nodeinfo_t> BitcoinAPI::getaddednodeinfo(bool dns, const std::string& nod
 				netaddress_t net;
 
 				net.address = val2["address"].asString();
-				net.connected = val2["connected"].asBool();
+				net.connected = val2["connected"].asString();
 
 				node.addresses.push_back(net);
 			}
