@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE(WalletBackup) {
 	BOOST_REQUIRE(!exists(bPath));
 
 	/* Create backup and check if file exists */
-	BOOST_REQUIRE_NO_THROW(fx.btc.backupwallet(bPath.generic_string()));
+	NO_THROW(fx.btc.backupwallet(bPath.generic_string()));
 
 	BOOST_REQUIRE(exists(bPath));
 
@@ -41,43 +41,28 @@ BOOST_AUTO_TEST_CASE(EncryptWallet) {
 	/* IF wallet is not encrypted THEN wallet will be encrypted
 	   IF wallet is encrypted THEN error -15 is thrown
 	*/
-	try {
-		fx.btc.encryptwallet("123456");
-	} catch (BitcoinException& e) {
-		BOOST_REQUIRE_MESSAGE(false, "Error(" << e.getCode() << "): " << e.getMessage());
-	}
-
+	NO_THROW_EXCEPT(fx.btc.encryptwallet("123456"), -15);
 }
 
 BOOST_AUTO_TEST_CASE(WalletPassphrase) {
 
 	MyFixture fx;
 
-	try {
-		fx.btc.walletpassphrase("123456", 10);
-	} catch (BitcoinException& e) {
-		BOOST_REQUIRE(e.getCode() == -14);
-		BOOST_WARN_MESSAGE(false, e.getMessage());
-	}
+	NO_THROW_EXCEPT(fx.btc.walletpassphrase("123456", 10), -14);
 }
 
 BOOST_AUTO_TEST_CASE(WalletLock) {
 
 	MyFixture fx;
 
-	BOOST_REQUIRE_NO_THROW(fx.btc.walletlock());
+	NO_THROW(fx.btc.walletlock());
 }
 
 BOOST_AUTO_TEST_CASE(WalletPassphraseChange) {
 
 	MyFixture fx;
 
-	try {
-		fx.btc.walletpassphrasechange("123456", "123456");
-	} catch (BitcoinException& e) {
-		BOOST_REQUIRE(e.getCode() == -14);
-		BOOST_WARN_MESSAGE(false, e.getMessage());
-	}
+	NO_THROW_EXCEPT(fx.btc.walletpassphrasechange("123456", "123456"), -14);
 }
 
 BOOST_AUTO_TEST_CASE(ImportDumpPrivkey) {
@@ -89,19 +74,13 @@ BOOST_AUTO_TEST_CASE(ImportDumpPrivkey) {
 	std::string response;
 
 	/* Check if passphrase is correct and unlock wallet */
-	try {
-		fx.btc.walletpassphrase("123456", 10);
-	} catch (BitcoinException& e) {
-		BOOST_REQUIRE(e.getCode() == -14);
-		BOOST_WARN_MESSAGE(false, e.getMessage());
-		return;
-	}
+	NO_THROW_EXCEPT(fx.btc.walletpassphrase("123456", 10), -14);
 
 	/* Attempt to import the privkey */
-	BOOST_REQUIRE_NO_THROW(fx.btc.importprivkey(param1, "TestKey", false));
+	NO_THROW(fx.btc.importprivkey(param1, "TestKey", false));
 
 	/* Dump private key */
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.dumpprivkey(param2));
+	NO_THROW(response = fx.btc.dumpprivkey(param2));
 	BOOST_REQUIRE(param1 == response);
 
 	#ifdef VERBOSE
@@ -110,7 +89,7 @@ BOOST_AUTO_TEST_CASE(ImportDumpPrivkey) {
 	#endif
 
 	/* Clean up */
-	BOOST_REQUIRE_NO_THROW(fx.btc.walletlock());
+	NO_THROW(fx.btc.walletlock());
 }
 
 BOOST_AUTO_TEST_CASE(AddMultisigAddress) {
@@ -126,7 +105,7 @@ BOOST_AUTO_TEST_CASE(AddMultisigAddress) {
 	std::string response;
 	std::string address = "36m2bHwsUnkpGsZgVAEmeJRf2CeViDm6RV";
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.addmultisigaddress(2, param));
+	NO_THROW(response = fx.btc.addmultisigaddress(2, param));
 	BOOST_REQUIRE(response == address);
 }
 
@@ -147,7 +126,7 @@ BOOST_AUTO_TEST_CASE(CreateMultisig) {
 			"3ae4210343947d178f20b8267488e488442650c27e1e9956c824077f646d6ce13a"
 			"285d8452ae";
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.createmultisig(2, param));
+	NO_THROW(response = fx.btc.createmultisig(2, param));
 	BOOST_REQUIRE(response.address == address);
 	BOOST_REQUIRE(response.redeemScript == redeemScript);
 }
@@ -158,14 +137,7 @@ BOOST_AUTO_TEST_CASE(GetNewAddress) {
 
 	std::string response;
 	
-	try {
-		response = fx.btc.getnewaddress();
-	} catch (BitcoinException& e) {
-		BOOST_REQUIRE(e.getCode() == -12);
-		BOOST_TEST_MESSAGE("[WARNING]: Insufficient keypool size");
-		return;
-	}
-
+	NO_THROW_EXCEPT(response = fx.btc.getnewaddress(), -12);
 	BOOST_REQUIRE(response.length() >= 27 && response.length() <= 34);
 
 	#ifdef VERBOSE
@@ -181,8 +153,8 @@ BOOST_AUTO_TEST_CASE(ValidateAddress) {
 	std::string param;
 	validateaddress_t response;
 
-	BOOST_REQUIRE_NO_THROW(param = fx.btc.getaccountaddress(""));
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.validateaddress(param));
+	NO_THROW(param = fx.btc.getaccountaddress(""));
+	NO_THROW(response = fx.btc.validateaddress(param));
 
 	#ifdef VERBOSE
 	std::cout << "=== validateaddress ===" << std::endl;
@@ -203,27 +175,21 @@ BOOST_AUTO_TEST_CASE(KeypoolRefill) {
 	int oldkeypoolsize;
 	int newkeypoolsize;
 	int refreshedkeypoolsize;	
-
+	std::string addr;
 
 	/* Get current keypool size and use one key */
-	BOOST_REQUIRE_NO_THROW(oldkeypoolsize = fx.btc.getinfo().keypoolsize);
-	BOOST_REQUIRE_NO_THROW(fx.btc.getnewaddress());
-	BOOST_REQUIRE_NO_THROW(newkeypoolsize = fx.btc.getinfo().keypoolsize);
+	NO_THROW(oldkeypoolsize = fx.btc.getinfo().keypoolsize);
+	NO_THROW(addr = fx.btc.getnewaddress());
+	NO_THROW(newkeypoolsize = fx.btc.getinfo().keypoolsize);
 	
-	BOOST_REQUIRE((oldkeypoolsize - 1) == newkeypoolsize);
+	BOOST_REQUIRE((oldkeypoolsize - 1) == newkeypoolsize || newkeypoolsize == 101);
 
 	/* Check if passphrase is correct and unlock wallet */
-	try {
-		fx.btc.walletpassphrase("123456", 10);
-	} catch (BitcoinException& e) {
-		BOOST_REQUIRE(e.getCode() == -14);
-		BOOST_WARN_MESSAGE(false, e.getMessage());
-		return;
-	}
+	NO_THROW_EXCEPT(fx.btc.walletpassphrase("123456", 10), -14);
 
 	/* Then refill the keypool */
-	BOOST_REQUIRE_NO_THROW(fx.btc.keypoolrefill());
-	BOOST_REQUIRE_NO_THROW(refreshedkeypoolsize = fx.btc.getinfo().keypoolsize);
+	NO_THROW(fx.btc.keypoolrefill());
+	NO_THROW(refreshedkeypoolsize = fx.btc.getinfo().keypoolsize);
 	BOOST_REQUIRE(refreshedkeypoolsize == 101);
 }
 
@@ -234,15 +200,10 @@ BOOST_AUTO_TEST_CASE(SetTxFee) {
 	bool response;
 	double getinfofee;
 
-	try {
-		response = fx.btc.settxfee(0.0002);
-	} catch (BitcoinException& e) {
-		BOOST_REQUIRE_MESSAGE(false, "Error(" << e.getCode() << "): " << e.getMessage());
-	}
-
+	NO_THROW(response = fx.btc.settxfee(0.0002));
 	BOOST_REQUIRE(response == true);
 
-	BOOST_REQUIRE_NO_THROW(getinfofee = fx.btc.getinfo().paytxfee);
+	NO_THROW(getinfofee = fx.btc.getinfo().paytxfee);
 	BOOST_REQUIRE(getinfofee == 0.0002);
 }
 
@@ -257,18 +218,12 @@ BOOST_AUTO_TEST_CASE(SignVerifyMessage) {
 	bool response = false;
 
 	/* Check if passphrase is correct and unlock wallet */
-	try {
-		fx.btc.walletpassphrase("123456", 10);
-	} catch (BitcoinException& e) {
-		BOOST_REQUIRE(e.getCode() == -14);
-		BOOST_TEST_MESSAGE("[WARNING]: Incorrect wallet passphrase");
-		return;
-	}
+	NO_THROW_EXCEPT(fx.btc.walletpassphrase("123456", 10), -14);
 
-	BOOST_REQUIRE_NO_THROW(addr = fx.btc.getaccountaddress(""));
-	BOOST_REQUIRE_NO_THROW(sig = fx.btc.signmessage(addr, msg1));
+	NO_THROW(addr = fx.btc.getaccountaddress(""));
+	NO_THROW(sig = fx.btc.signmessage(addr, msg1));
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.verifymessage(addr, sig, msg1));
+	NO_THROW(response = fx.btc.verifymessage(addr, sig, msg1));
 	BOOST_REQUIRE(response == true);
 
 	BOOST_REQUIRE_NO_THROW(response = fx.btc.verifymessage(addr, sig, msg2));

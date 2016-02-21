@@ -11,7 +11,7 @@ BOOST_AUTO_TEST_CASE(GetBestBlockHash) {
 	MyFixture fx;
 	std::string response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getbestblockhash());
+	NO_THROW(response = fx.btc.getbestblockhash());
 	BOOST_REQUIRE(response.size() == 64);
 
 	#ifdef VERBOSE
@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(GetBlockHash) {
 	MyFixture fx;
 	std::string response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getblockhash(1));
+	NO_THROW(response = fx.btc.getblockhash(1));
 	BOOST_REQUIRE(response.size() == 64);
 
 	#ifdef VERBOSE
@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(GetBlockCount) {
 	MyFixture fx;
 	int response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getblockcount());
+	NO_THROW(response = fx.btc.getblockcount());
 	BOOST_REQUIRE(response >= 10);
 
 	#ifdef VERBOSE
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE(GetBlock) {
 	MyFixture fx;
 	blockinfo_t response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getblock("00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048"));
+	NO_THROW(response = fx.btc.getblock("00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048"));
 	BOOST_REQUIRE(response.height == 1);
 
 	#ifdef VERBOSE
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(GetGenerate) {
 	MyFixture fx;
 	bool response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getgenerate());
+	NO_THROW(response = fx.btc.getgenerate());
 	BOOST_REQUIRE(response == true || response == false);
 
 	#ifdef VERBOSE
@@ -98,10 +98,10 @@ BOOST_AUTO_TEST_CASE(SetGenerate) {
 
 	MyFixture fx;
 
-	BOOST_REQUIRE_NO_THROW(fx.btc.setgenerate(true));
+	NO_THROW(fx.btc.setgenerate(true));
 	BOOST_REQUIRE(fx.btc.getgenerate() == true);
 
-	BOOST_REQUIRE_NO_THROW(fx.btc.setgenerate(false));
+	NO_THROW(fx.btc.setgenerate(false));
 	BOOST_REQUIRE(fx.btc.getgenerate() == false);
 }
 
@@ -112,7 +112,7 @@ BOOST_AUTO_TEST_CASE(GetDifficulty) {
 	MyFixture fx;
 	double response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getdifficulty());
+	NO_THROW(response = fx.btc.getdifficulty());
 	BOOST_REQUIRE(response >= 100000);
 
 	#ifdef VERBOSE
@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_CASE(GetMiningInfo) {
 	MyFixture fx;
 	mininginfo_t response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.getmininginfo());
+	NO_THROW(response = fx.btc.getmininginfo());
 	BOOST_REQUIRE(response.blocks > 1);
 
 	#ifdef VERBOSE
@@ -152,7 +152,7 @@ BOOST_AUTO_TEST_CASE(ListSinceBlock) {
 	MyFixture fx;
 	txsinceblock_t response;
 
-	BOOST_REQUIRE_NO_THROW(response = fx.btc.listsinceblock("", 1));
+	NO_THROW(response = fx.btc.listsinceblock("", 1));
 
 	#ifdef VERBOSE
 	std::cout << "=== listsinceblock ===" << std::endl;

@@ -34,7 +34,7 @@ BitcoinAPI::BitcoinAPI(const string& user, const string& password, const string&
 : httpClient(new HttpClient("http://" + user + ":" + password + "@" + host + ":" + NumberToString(port))),
   client(new Client(*httpClient, JSONRPC_CLIENT_V1))
 {
-    httpClient->SetTimeout(20000);
+    httpClient->SetTimeout(50000);
 }
 
 BitcoinAPI::~BitcoinAPI()
