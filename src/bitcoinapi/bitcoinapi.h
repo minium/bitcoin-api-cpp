@@ -61,6 +61,7 @@ public:
 
     void keypoolrefill();
     bool settxfee(double amount);
+    double estimatefee(int blocks);
 
     std::string signmessage(const std::string& bitcoinaddress, const std::string& message);
     bool verifymessage(const std::string& bitcoinaddress, const std::string& signature, const std::string& message);

@@ -377,6 +377,14 @@ bool BitcoinAPI::settxfee(double amount) {
 	return result.asBool();
 }
 
+double BitcoinAPI::estimatefee(int blocks) {
+	string command = "estimatefee";
+	Value params, result;
+	params.append(blocks);
+	result = sendcommand(command, params);
+	return result.asDouble();
+}
+
 string BitcoinAPI::signmessage(const std::string& bitcoinaddress, const std::string& message) {
 	string command = "signmessage";
 	Value params, result;
