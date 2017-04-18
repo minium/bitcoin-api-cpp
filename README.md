@@ -54,7 +54,8 @@ int main()
 
         /* Example method - getbalance */
         std::cout << "Wallet balance: " << btc.getbalance() << std::endl;
-    }catch(BitcoinException e)
+    }
+    catch(BitcoinException e)
     {
         std::cerr << e.getMessage() << std::endl;
     }
