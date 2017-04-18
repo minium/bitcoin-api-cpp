@@ -377,7 +377,7 @@ bool BitcoinAPI::settxfee(double amount) {
 	return result.asBool();
 }
 
-double BitcoinAPI::estimatefee(const int blocks) {
+double BitcoinAPI::estimatefee(int blocks) {
 	string command = "estimatefee";
 	Value params, result;
 	params.append(blocks);
