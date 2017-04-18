@@ -28,6 +28,7 @@ cd build
 cmake ..
 make
 sudo make install
+ldconfig
 ```
 
 Using the library
