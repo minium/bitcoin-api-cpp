@@ -32,6 +32,7 @@ public:
     Json::Value sendcommand(const std::string& command, const Json::Value& params);
     std::string NumberToString(int num);
     int StringToNumber(const std::string& str);
+    double RoundDouble(double num);
 
 
     /* === Node functions === */

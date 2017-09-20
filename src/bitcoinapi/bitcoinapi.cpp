@@ -12,6 +12,7 @@
 
 #include <string>
 #include <stdexcept>
+#include <cmath>
 
 #include <jsonrpccpp/client.h>
 #include <jsonrpccpp/client/connectors/httpclient.h>
@@ -53,6 +54,11 @@ int BitcoinAPI::StringToNumber (const string &text){
 	std::istringstream ss(text);
 	int result;
 	return ss >> result ? result : 0;
+}
+
+double BitcoinAPI::RoundDouble(double num)
+{
+	return floor(num * pow(10,8)) / pow(10,8);
 }
 
 Value BitcoinAPI::sendcommand(const string& command, const Value& params){    
@@ -372,7 +378,7 @@ void BitcoinAPI::keypoolrefill() {
 bool BitcoinAPI::settxfee(double amount) {
 	string command = "settxfee";
 	Value params, result;
-	params.append(amount);
+	params.append(RoundDouble(amount));
 	result = sendcommand(command, params);
 	return result.asBool();
 }
@@ -701,7 +707,7 @@ bool BitcoinAPI::move(const string& fromaccount, const string& toaccount, double
 
 	params.append(fromaccount);
 	params.append(toaccount);
-	params.append(amount);
+	params.append(RoundDouble(amount));
 	params.append(minconf);
 	result = sendcommand(command, params);
 
@@ -714,7 +720,7 @@ bool BitcoinAPI::move(const string& fromaccount, const string& toaccount, double
 
 	params.append(fromaccount);
 	params.append(toaccount);
-	params.append(amount);
+	params.append(RoundDouble(amount));
 	params.append(minconf);
 	params.append(comment);
 	result = sendcommand(command, params);
@@ -737,7 +743,7 @@ string BitcoinAPI::sendtoaddress(const string& bitcoinaddress, double amount) {
 	Value params, result;
 
 	params.append(bitcoinaddress);
-	params.append(amount);
+	params.append(RoundDouble(amount));
 
 	result = sendcommand(command, params);
 	return result.asString();
@@ -748,7 +754,7 @@ string BitcoinAPI::sendtoaddress(const string& bitcoinaddress, double amount, co
 	Value params, result;
 
 	params.append(bitcoinaddress);
-	params.append(amount);
+	params.append(RoundDouble(amount));
 	params.append(comment);
 	params.append(comment_to);
 
@@ -762,7 +768,7 @@ string BitcoinAPI::sendfrom(const string& fromaccount, const string& tobitcoinad
 
 	params.append(fromaccount);
 	params.append(tobitcoinaddress);
-	params.append(amount);
+	params.append(RoundDouble(amount));
 
 	result = sendcommand(command, params);
 	return result.asString();
@@ -774,7 +780,7 @@ string BitcoinAPI::sendfrom(const string& fromaccount, const string& tobitcoinad
 
 	params.append(fromaccount);
 	params.append(tobitcoinaddress);
-	params.append(amount);
+	params.append(RoundDouble(amount));
 	params.append(minconf);
 	params.append(comment);
 	params.append(comment_to);
@@ -791,7 +797,7 @@ string BitcoinAPI::sendmany(const string& fromaccount, const map<string,double>&
 
 	Value obj(Json::objectValue);
 	for(map<string,double>::const_iterator it = amounts.begin(); it != amounts.end(); it++){
-		obj[(*it).first] = (*it).second;
+		obj[(*it).first] = RoundDouble((*it).second);
 	}
 
 	params.append(obj);
@@ -808,7 +814,7 @@ string BitcoinAPI::sendmany(const string& fromaccount, const map<string,double>&
 
 	Value obj(Json::objectValue);
 	for(map<string,double>::const_iterator it = amounts.begin(); it != amounts.end(); it++){
-		obj[(*it).first] = (*it).second;
+		obj[(*it).first] = RoundDouble((*it).second);
 	}
 
 	params.append(obj);
@@ -1156,7 +1162,7 @@ string BitcoinAPI::createrawtransaction(const vector<txout_t>& inputs, const map
 
 	Value obj(Json::objectValue);
 	for(map<string,double>::const_iterator it = amounts.begin(); it != amounts.end(); it++){
-		obj[(*it).first] = (*it).second;
+		obj[(*it).first] = RoundDouble((*it).second);
 	}
 
 	params.append(vec);

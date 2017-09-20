@@ -12,6 +12,7 @@
 
 #include <string>
 #include <sstream>
+#include <iostream>
 
 #include <jsoncpp/json/json.h>
 #include <jsoncpp/json/reader.h>
