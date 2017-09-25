@@ -32,7 +32,7 @@ using std::vector;
 
 
 BitcoinAPI::BitcoinAPI(const string& user, const string& password, const string& host, int port)
-: httpClient(new HttpClient("http://" + user + ":" + password + "@" + host + ":" + NumberToString(port))),
+: httpClient(new HttpClient("http://" + user + ":" + password + "@" + host + ":" + IntegerToString(port))),
   client(new Client(*httpClient, JSONRPC_CLIENT_V1))
 {
     httpClient->SetTimeout(50000);
@@ -44,27 +44,28 @@ BitcoinAPI::~BitcoinAPI()
     delete httpClient;
 }
 
-string BitcoinAPI::NumberToString (int number){
+string BitcoinAPI::IntegerToString(int num){
 	std::ostringstream ss;
-	ss << number;
+	ss << num;
 	return ss.str();
 }
 
-int BitcoinAPI::StringToNumber (const string &text){
-	std::istringstream ss(text);
-	int result;
-	return ss >> result ? result : 0;
-}
-
-double BitcoinAPI::RoundDouble(double num)
+std::string BitcoinAPI::RoundDouble(double num)
 {
-	return floor(num * pow(10,8)) / pow(10,8);
+	std::ostringstream ss;
+	ss.precision(16);
+
+	ss << num;
+	return ss.str();
 }
 
 Value BitcoinAPI::sendcommand(const string& command, const Value& params){    
     Value result;
 
     try{
+    	std::cout << "DEBUG:" << std::endl;
+    	std::cout << params << std::endl;
+    	
 		result = client->CallMethod(command, params);
 	}
 	catch (JsonRpcException& e){

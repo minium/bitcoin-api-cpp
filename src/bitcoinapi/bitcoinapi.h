@@ -30,9 +30,9 @@ public:
 
     /* === Auxiliary functions === */
     Json::Value sendcommand(const std::string& command, const Json::Value& params);
-    std::string NumberToString(int num);
-    int StringToNumber(const std::string& str);
-    double RoundDouble(double num);
+
+    std::string IntegerToString(int num);    
+    std::string RoundDouble(double num);
 
 
     /* === Node functions === */
