@@ -44,21 +44,6 @@ BitcoinAPI::~BitcoinAPI()
     delete httpClient;
 }
 
-string BitcoinAPI::IntegerToString(int num){
-	std::ostringstream ss;
-	ss << num;
-	return ss.str();
-}
-
-std::string BitcoinAPI::RoundDouble(double num)
-{
-	std::ostringstream ss;
-	ss.precision(16);
-
-	ss << num;
-	return ss.str();
-}
-
 Value BitcoinAPI::sendcommand(const string& command, const Value& params){    
     Value result;
 
@@ -74,6 +59,22 @@ Value BitcoinAPI::sendcommand(const string& command, const Value& params){
 	}
 
 	return result;
+}
+
+
+string BitcoinAPI::IntegerToString(int num){
+	std::ostringstream ss;
+	ss << num;
+	return ss.str();
+}
+
+std::string BitcoinAPI::RoundDouble(double num)
+{
+	std::ostringstream ss;
+	ss.precision(8);
+
+	ss << std::fixed << num;
+	return ss.str();
 }
 
 
