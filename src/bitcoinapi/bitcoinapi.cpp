@@ -48,9 +48,6 @@ Value BitcoinAPI::sendcommand(const string& command, const Value& params){
     Value result;
 
     try{
-    	std::cout << "DEBUG:" << std::endl;
-    	std::cout << params << std::endl;
-    	
 		result = client->CallMethod(command, params);
 	}
 	catch (JsonRpcException& e){
