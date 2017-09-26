@@ -1143,7 +1143,6 @@ string BitcoinAPI::sendrawtransaction(const string& hexString, bool highFee) {
 	return result.asString();
 }
 
-
 string BitcoinAPI::createrawtransaction(const vector<txout_t>& inputs, const map<string,double>& amounts) {
 	string command = "createrawtransaction";
 	Value params, result;
@@ -1162,6 +1161,33 @@ string BitcoinAPI::createrawtransaction(const vector<txout_t>& inputs, const map
 	Value obj(Json::objectValue);
 	for(map<string,double>::const_iterator it = amounts.begin(); it != amounts.end(); it++){
 		obj[(*it).first] = RoundDouble((*it).second);
+	}
+
+	params.append(vec);
+	params.append(obj);
+	result = sendcommand(command, params);
+
+	return result.asString();
+}
+
+string BitcoinAPI::createrawtransaction(const vector<txout_t>& inputs, const map<string,string>& amounts) {
+	string command = "createrawtransaction";
+	Value params, result;
+
+	Value vec(Json::arrayValue);
+	for(vector<txout_t>::const_iterator it = inputs.begin(); it != inputs.end(); it++){
+		Value val;
+		txout_t tmp = (*it);
+
+		val["txid"] = tmp.txid;
+		val["vout"] = tmp.n;
+
+		vec.append(val);
+	}
+
+	Value obj(Json::objectValue);
+	for(map<string,double>::const_iterator it = amounts.begin(); it != amounts.end(); it++){
+		obj[(*it).first] = (*it).second;
 	}
 
 	params.append(vec);
