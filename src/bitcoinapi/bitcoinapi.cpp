@@ -1186,7 +1186,7 @@ string BitcoinAPI::createrawtransaction(const vector<txout_t>& inputs, const map
 	}
 
 	Value obj(Json::objectValue);
-	for(map<string,double>::const_iterator it = amounts.begin(); it != amounts.end(); it++){
+	for(map<string,string>::const_iterator it = amounts.begin(); it != amounts.end(); it++){
 		obj[(*it).first] = (*it).second;
 	}
 
