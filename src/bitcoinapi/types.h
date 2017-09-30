@@ -134,6 +134,14 @@
 		std::string hex;
 	};
 
+	struct decodescript_t{
+		std::string assm;
+		std::string type;
+		std::string p2sh;
+
+		int reqSigs;
+		std::vector<std::string> addresses;
+	};
 
 	/* decoderawtransaction return type */
 	struct scriptSig_t{
@@ -172,6 +180,8 @@
 		std::vector<vin_t> vin;
 		std::vector<vout_t> vout;
 	};
+
+
 
 	/* getrawtransaction return type */
 	struct getrawtransaction_t: decoderawtransaction_t{

@@ -137,6 +137,7 @@ public:
 
     /* === Low level calls === */
     getrawtransaction_t getrawtransaction(const std::string& txid, int verbose = 0);
+    decodescript_t decodescript(const std::string& hexString);
     decoderawtransaction_t decoderawtransaction(const std::string& hexString);
     std::string sendrawtransaction(const std::string& hexString, bool highFee);
 

@@ -1088,6 +1088,27 @@ getrawtransaction_t BitcoinAPI::getrawtransaction(const string& txid, int verbos
 	return ret;
 }
 
+decodescript_t BitcoinAPI::decodescript(const std::string& hexString) {
+	string command = "decodescript";
+	Value params, result;
+	decodescript_t ret;
+
+	params.append(hexString);
+	result = sendcommand(command, params);
+
+	ret.assm = result["asm"].asString();
+	ret.reqSigs = result["reqSigs"].asInt();
+	ret.type = result["type"].asString();
+	ret.p2sh = result["p2sh"].asString();
+	
+	for (ValueIterator it = result["addresses"].begin(); it != result["addresses"].end(); it++) {
+		Value val = (*it);
+		ret.addresses.push_back(val.asString());
+	}
+	
+	return ret;
+}
+
 decoderawtransaction_t BitcoinAPI::decoderawtransaction(const string& hexString) {
 	string command = "decoderawtransaction";
 	Value params, result;
