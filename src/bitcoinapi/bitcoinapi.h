@@ -75,6 +75,7 @@ public:
     /* === Accounting === */
     double getbalance();
     double getbalance(const std::string& account, int minconf = 1);
+    double getbalance(const std::string& account, int minconf = 1, bool includeWatchOnly = false);
     double getunconfirmedbalance();
 
     double getreceivedbyaccount(const std::string& account, int minconf = 1);

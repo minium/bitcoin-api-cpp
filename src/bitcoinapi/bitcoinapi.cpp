@@ -437,6 +437,18 @@ double BitcoinAPI::getbalance(const string& account, int minconf) {
 	return result.asDouble();
 }
 
+double BitcoinAPI::getbalance(const string& account, int minconf, bool includeWatchOnly) {
+	string command = "getbalance";
+	Value params, result;
+	params.append(account);
+	params.append(minconf);
+	params.append(includeWatchOnly);
+	result = sendcommand(command, params);
+
+	return result.asDouble();
+}
+
+
 double BitcoinAPI::getunconfirmedbalance() {
 	string command = "getunconfirmedbalance";
 	Value params, result;
