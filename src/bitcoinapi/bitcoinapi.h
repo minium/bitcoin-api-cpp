@@ -25,7 +25,7 @@ private:
 
 public:
     /* === Constructor and Destructor === */
-    BitcoinAPI(const std::string& user, const std::string& password, const std::string& host, int port);
+    BitcoinAPI(const std::string& user, const std::string& password, const std::string& host, int port, int httpTimeout);
     ~BitcoinAPI();
 
     /* === Auxiliary functions === */
@@ -53,6 +53,7 @@ public:
     std::string dumpprivkey(const std::string& bitcoinaddress);
     void importprivkey(const std::string& bitcoinprivkey);
     void importprivkey(const std::string& bitcoinprivkey, const std::string& label, bool rescan = true);
+    void importAddress(const string& address, const string& account, bool rescan);
 
     std::string addmultisigaddress(int nrequired, const std::vector<std::string>& keys);
     std::string addmultisigaddress(int nrequired, const std::vector<std::string>& keys, const std::string& account);
