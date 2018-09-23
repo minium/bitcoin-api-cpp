@@ -8,9 +8,18 @@ before_install:
   - sudo apt-get update -qq
 
 install:
-  - sudo apt-get install git libmicrohttpd-dev libcurl4-openssl-dev libjsoncpp-dev libargtable2-dev libhiredis-dev libjson-rpc-cpp-dev
+  - sudo apt-get install git libmicrohttpd-dev libcurl4-openssl-dev libjsoncpp-dev libargtable2-dev libhiredis-dev
   - sudo apt-get install -qq gcc-4.8 g++-4.8
   - export CXX="g++-4.8"
+
+  - cd ..
+  - git clone https://github.com/cinemast/libjson-rpc-cpp
+  - cd libjson-rpc-cpp
+  - mkdir build
+  - cd build
+  - cmake -DHTTP_SERVER=NO ..
+  - make && sudo make install
+  - cd ../../bitcoin-api-cpp
 
 before_script:
   - mkdir build
