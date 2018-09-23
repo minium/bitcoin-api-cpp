@@ -31,11 +31,11 @@ using std::string;
 using std::vector;
 
 
-BitcoinAPI::BitcoinAPI(const string& user, const string& password, const string& host, int port)
+BitcoinAPI::BitcoinAPI(const string& user, const string& password, const string& host, int port, int httpTimeout)
 : httpClient(new HttpClient("http://" + user + ":" + password + "@" + host + ":" + IntegerToString(port))),
   client(new Client(*httpClient, JSONRPC_CLIENT_V1))
 {
-    httpClient->SetTimeout(50000);
+    httpClient->SetTimeout(httpTimeout);
 }
 
 BitcoinAPI::~BitcoinAPI()
@@ -291,6 +291,15 @@ void BitcoinAPI::importprivkey(const string& bitcoinprivkey, const string& label
 	sendcommand(command, params);
 }
 
+void BitcoinAPI::importAddress(const string& address, const string& account, bool rescan) {
+	string command = "importaddress";
+	Value params, result;
+	params.append(address);
+    params.append(account);
+    params.append(rescan);
+	sendcommand(command, params);
+}
+
 string BitcoinAPI::addmultisigaddress(int nrequired, const vector<string>& keys) {
 	string command = "addmultisigaddress";
 	Value params, result;
@@ -427,6 +436,18 @@ double BitcoinAPI::getbalance(const string& account, int minconf) {
 
 	return result.asDouble();
 }
+
+double BitcoinAPI::getbalance(const string& account, int minconf, bool includeWatchOnly) {
+	string command = "getbalance";
+	Value params, result;
+	params.append(account);
+	params.append(minconf);
+	params.append(includeWatchOnly);
+	result = sendcommand(command, params);
+
+	return result.asDouble();
+}
+
 
 double BitcoinAPI::getunconfirmedbalance() {
 	string command = "getunconfirmedbalance";
