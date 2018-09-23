@@ -291,7 +291,7 @@ void BitcoinAPI::importprivkey(const string& bitcoinprivkey, const string& label
 	sendcommand(command, params);
 }
 
-void BitcoinAPI::importAddress(const string& address, const string& account, bool rescan) {
+void BitcoinAPI::importaddress(const string& address, const string& account, bool rescan) {
 	string command = "importaddress";
 	Value params, result;
 	params.append(address);
@@ -427,27 +427,16 @@ double BitcoinAPI::getbalance() {
 	return result.asDouble();
 }
 
-double BitcoinAPI::getbalance(const string& account, int minconf) {
+double BitcoinAPI::getbalance(const string& account, int minconf, bool includewatchonly) {
 	string command = "getbalance";
 	Value params, result;
 	params.append(account);
 	params.append(minconf);
+	params.append(includewatchonly);
 	result = sendcommand(command, params);
 
 	return result.asDouble();
 }
-
-double BitcoinAPI::getbalance(const string& account, int minconf, bool includeWatchOnly) {
-	string command = "getbalance";
-	Value params, result;
-	params.append(account);
-	params.append(minconf);
-	params.append(includeWatchOnly);
-	result = sendcommand(command, params);
-
-	return result.asDouble();
-}
-
 
 double BitcoinAPI::getunconfirmedbalance() {
 	string command = "getunconfirmedbalance";
